@@ -1,0 +1,7 @@
+*.conf
+*.log
+*.pid
+*.swp
+clamdb
+example.js
+node_modules
