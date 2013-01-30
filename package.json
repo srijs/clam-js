@@ -1,0 +1,26 @@
+{
+  "name": "clam-js",
+  "version": "0.1.0",
+  "description": "Control a ClamAV daemon over TCP or Unix Domain Sockets.",
+  "main": "clam.js",
+  "dependencies": {
+    "carrier": "~0.1.8"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:srijs/clam-js.git"
+  },
+  "keywords": [
+    "virus",
+    "scan",
+    "clam",
+    "clamav",
+    "clamd"
+  ],
+  "author": "Sam Rijs",
+  "license": "MIT"
+}
