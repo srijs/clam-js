@@ -38,7 +38,8 @@ module.exports = function (conn_opts, opts, continuation) {
   carry(session, function (line) {
     var match = line.match(/^([0-9]+): (.+)/);
     if (match !== null && typeof async_cb[match[1]] === 'function') {
-      setTimeout(function () { async_cb[match[1]](match[2]); }, 0);
+      async_cb[match[1]](match[2]);
+      delete async_cb[match[1]];
     }
   });
 
