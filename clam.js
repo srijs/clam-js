@@ -1,7 +1,10 @@
 var net = require('net');
+var EventEmitter = require('events').EventEmitter;
 var carry = require('carrier').carry;
 
 var Clam = module.exports = function (conn_opts, opts, continuation) {
+
+  var self = new EventEmitter();
 
   var timeout = opts && opts.timeout || 5;
 
@@ -20,7 +23,7 @@ var Clam = module.exports = function (conn_opts, opts, continuation) {
     /* Call the continuation, if given. */
 
     if (typeof continuation === 'function') {
-      continuation.call(this);
+      continuation.call(self);
     }
 
   });
@@ -35,16 +38,13 @@ var Clam = module.exports = function (conn_opts, opts, continuation) {
     }
   });
 
-  session.on('end', function () {
-    alive = false;
-  });
-
   session.on('close', function (had_error) {
     alive = false;
+    self.emit('close', had_error);
   });
 
   session.on('error', function (err) {
-    //...
+    self.emit('error', err);
   });
 
   /* Functions for low-level handling of the session. */
@@ -63,7 +63,9 @@ var Clam = module.exports = function (conn_opts, opts, continuation) {
 
   var ping = function () {
     if (alive) {
-      _raw('ping');
+      _raw('ping', null, function (pong) {
+        self.emit('pong', pong);
+      });
       setTimeout(ping, timeout * 1000 / 2);
     }
   };
@@ -72,18 +74,18 @@ var Clam = module.exports = function (conn_opts, opts, continuation) {
 
   /* Define frontend methods. */
 
-  this.alive = function () {
+  self.alive = function () {
     return alive;
   };
 
-  this.version = function (cb) {
+  self.version = function (cb) {
     _raw('version', null, cb);
   };
 
-  this.scan = function (path, cb) {
+  self.scan = function (path, cb) {
     _raw('scan', path, cb);
   };
 
-  return this;
+  return self;
 
 };
