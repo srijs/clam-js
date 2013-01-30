@@ -1,18 +1,18 @@
-var net = require('net');
-var EventEmitter = require('events').EventEmitter;
-var carry = require('carrier').carry;
+var net          = require('net'),
+    EventEmitter = require('events').EventEmitter,
+    carry        = require('carrier').carry;
 
-var Clam = module.exports = function (conn_opts, opts, continuation) {
+module.exports = function (conn_opts, opts, continuation) {
 
   var self = new EventEmitter();
 
   var timeout = opts && opts.timeout || 5;
 
+  var async_id = 0,
+      async_cb = {};
+
   var alive = false;
-
-  var async_id = 0;
-  var async_cb = {};
-
+  
   var session = net.connect(conn_opts, function () {
 
     /* Init asynchronous session. */
