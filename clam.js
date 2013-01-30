@@ -6,7 +6,7 @@ module.exports = function (conn_opts, opts, continuation) {
 
   var self = new EventEmitter();
 
-  var timeout = opts && opts.timeout || 5;
+  var timeout = opts && opts.timeout || 5;
 
   var async_id = 0,
       async_cb = {};
@@ -22,7 +22,7 @@ module.exports = function (conn_opts, opts, continuation) {
 
     /* Call the continuation, if given. */
 
-    if (typeof continuation === 'function') {
+    if (typeof continuation === 'function') {
       continuation.call(self);
     }
 
