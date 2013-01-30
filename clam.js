@@ -26,6 +26,8 @@ module.exports = function (conn_opts, opts, continuation) {
       continuation.call(self);
     }
 
+    self.emit('connect');
+
   });
   
   /* Register callbacks for line-based reading and
