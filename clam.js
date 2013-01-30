@@ -26,6 +26,8 @@ module.exports = function (conn_opts, opts, continuation) {
       continuation.call(self);
     }
 
+    ping();
+
     self.emit('connect');
 
   });
@@ -71,8 +73,6 @@ module.exports = function (conn_opts, opts, continuation) {
       setTimeout(ping, timeout * 1000 / 2);
     }
   };
-
-  ping();
 
   /* Define frontend methods. */
 
