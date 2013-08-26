@@ -13,11 +13,11 @@ Control a ClamAV daemon over TCP or Unix Domain Sockets.
         }
       });
 
-      this.scan('~/joe/something.zip', function (err, isClean) {
+      this.scan('~/joe/something.zip', function (err, isClean, virusName) {
         if (err) {
           console.log(err);
         } else {
-          console.log('State of file: ' + (isClean ? 'clean' : 'infected'));
+          console.log('State of file: ' + (isClean ? 'clean' : 'infected with'+ virusName));
         }
       });
 
