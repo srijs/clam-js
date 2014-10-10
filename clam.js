@@ -31,6 +31,8 @@ module.exports = function (conn_opts, opts, continuation) {
     self.emit('connect');
 
   });
+
+  session.setTimeout(timeout * 1000);
   
   /* Register callbacks for line-based reading and
      end, close, error. */
