@@ -54,6 +54,11 @@ module.exports = function (conn_opts, opts, continuation) {
     self.emit('error', err);
   });
 
+  session.on('timeout', function () {
+    session.destroy();
+    self.emit('error', new Error('socket timeout'));
+  });
+
   /* Functions for low-level handling of the session. */
 
   var _raw = function (cmd, extra, cb) {
