@@ -80,6 +80,10 @@ module.exports = function (conn_opts, opts, continuation) {
   self.alive = function () {
     return alive;
   };
+  
+  self.end = function () {
+    _end();
+  };
 
   self.version = function (cb) {
     _raw('version', null, function (data) {
