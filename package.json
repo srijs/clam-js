@@ -1,6 +1,6 @@
 {
   "name": "clam-js",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Control a ClamAV daemon over TCP or Unix Domain Sockets.",
   "main": "clam.js",
   "dependencies": {
