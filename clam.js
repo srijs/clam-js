@@ -92,6 +92,10 @@ module.exports = function (conn_opts, opts, continuation) {
     _end();
   };
 
+  self.destroy = function () {
+    session.destroy();
+  };
+
   self.version = function (cb) {
     _raw('version', null, function (data) {
       cb(null, data);
