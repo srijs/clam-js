@@ -104,10 +104,10 @@ module.exports = function (conn_opts, opts, continuation) {
 
   self.scan = function (path, cb) {
     _raw('scan', path, function (data) {
-      var match = data.match(/(OK|FOUND|ERROR)$/);
-      switch (match && match[1]) {
+      var match = data.match(/(\S+) (OK|FOUND|ERROR)$/);
+      switch (match && match[2]) {
         case 'OK':    cb(null, true); break;
-        case 'FOUND': cb(null, false); break;
+        case 'FOUND': cb(null, false, match[1]); break;
         case 'ERROR': cb(new Error(data)); break;
         default:      cb(new Error('Malformed response.')); break;
       }
